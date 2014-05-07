@@ -17,9 +17,10 @@ var layout = d3.layout.chord()
 var path = d3.svg.chord()
     .radius(innerRadius);
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select(".svg-container").append("svg")
     .attr("width", width)
     .attr("height", height)
+    // .attr("class", "svg-container")
   .append("g")
     .attr("id", "circle")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -70,8 +71,8 @@ d3.csv("cities.csv", function(cities) {
       .enter().append("path")
         .attr("class", "chord")
         .style("fill", function(d) { return cities[d.source.index].color; })
-        .style("stroke", "#D8D8D8")
-        .style("stroke-width", "1px")
+        // .style("stroke", "#D8D8D8")
+        // .style("stroke-width", "1px")
         .attr("d", path);
 
     // Add an elaborate mouseover title for each chord.
