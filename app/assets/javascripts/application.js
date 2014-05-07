@@ -13,4 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require ./d3.js
+//= require ./d3_tip.js
+
+
 //= require_tree .
