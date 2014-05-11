@@ -42,6 +42,7 @@ function drawChord(inputJSON, chord_number) {
           .data(layout.groups)
         .enter().append("g")
           .attr("class", "group")
+          .attr("id", function(d,i) { return routes[i].name; })
           .on("mouseover", mouseover);
 
       // Add a mouseover title.
@@ -122,8 +123,7 @@ $( '#button4' ).click(function(){
       this.remove();
     }
   );
-  // $('.chord-one-container').css('display', 'none');
-  // $('.group').remove();
+
   setTimeout(function(){
     drawChord("chord4.json", svg_two);
     $('.chord-two-container').css('display', 'none');
@@ -152,8 +152,7 @@ $('#button3').click(function(){
       this.remove();
     }
   );
-  // $('.chord-two-container').css('display', 'none');
-  // $('.group').remove();
+
   setTimeout(function(){
     drawChord("chord3.json", svg_one);
     $('.chord-one-container').css('display', 'none');

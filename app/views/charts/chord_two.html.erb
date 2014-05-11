@@ -26,7 +26,7 @@ path.chord {
   font-family: century gothic, sans-serif;
 }
 
-.svg-container {
+.svg-container, .sankey-container {
   margin-left: 100px;
   width: 620px;
   display: inline;
@@ -59,6 +59,7 @@ path.chord {
 <br><br>
 
 <div class="svg-container"></div>
+<div class="sankey-container"></div>
 
 <div class="description">
   <h3>Origin-Destination Diagram</h3>
@@ -66,10 +67,12 @@ path.chord {
     This graphic shows the top twenty (by ridership) Pace routes and their origin and destination pairs from April 2013. Arcs between routes show the number of riders that begin their journey at Route A and end at Route B. Hovering over a route or an arc will reveal more detailed information.
   </p>
   <p>CTA Rail and CTA Bus are included to demonstrate the large number of Pace riders migrating to CTA. The return data (CTA to Pace) is fictional, and is used merely to illustrate the chords.</p>
+  <input type="submit" id="button3" value="Show CTA"></input>
+  <input type="submit" id="button4" value="Hide CTA"></input>
+  <input type="submit" id="sankey-btn" value="Show Sankey"></input>
+  <input type="submit" id="hide-sankey-btn" value="Hide Sankey"></input>
 </div>
 
-<input type="submit" id="button3" value="Show CTA"></input>
-<input type="submit" id="button4" value="Hide CTA"></input>
 
 <!--<input type="submit" id="button" value="FadeOut"></input>
 <input type="submit" id="button2" value="FadeIn"></input>
