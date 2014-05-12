@@ -95,6 +95,16 @@ function drawChord(inputJSON, chord_number) {
               && p.target.index != i;
         });
       }
+
+      $('.group').click(function(){
+        $('.svg-container').hide();
+        // $('.sankey-container').show();
+        $('#sankey-352').show();
+        $('#hide-sankey-btn').show();
+        $('#sankey-btn').hide();
+        $('#some-crap').hide();
+      });
+
     });
   });
 }
@@ -168,3 +178,4 @@ $( "#button" ).click(function() {
 $( "#button2" ).click(function() {
   $('#circle').fadeIn(700);
 });
+

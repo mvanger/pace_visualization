@@ -15,6 +15,9 @@
 //= require turbolinks
 //= require ./d3.js
 //= require ./d3_tip.js
+//= require chord.js
+//= require sankey.js
+//= require sankey_detail.js
 
 
 //= require_tree .

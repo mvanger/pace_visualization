@@ -1,5 +1,9 @@
 <style>
 
+.group {
+  cursor: pointer;
+}
+
 #circle circle {
   fill: none;
   pointer-events: all;
@@ -59,7 +63,8 @@ path.chord {
 <br><br>
 
 <div class="svg-container"></div>
-<div class="sankey-container"></div>
+<div class="sankey-container" id="sankey-352"></div>
+<div class="sankey-container" id="sankey-rosemont"></div>
 
 <div class="description">
   <h3>Origin-Destination Diagram</h3>
@@ -69,8 +74,9 @@ path.chord {
   <p>CTA Rail and CTA Bus are included to demonstrate the large number of Pace riders migrating to CTA. The return data (CTA to Pace) is fictional, and is used merely to illustrate the chords.</p>
   <input type="submit" id="button3" value="Show CTA"></input>
   <input type="submit" id="button4" value="Hide CTA"></input>
-  <input type="submit" id="sankey-btn" value="Show Sankey"></input>
+  <!-- <input type="submit" id="sankey-btn" value="Show Sankey"></input> -->
   <input type="submit" id="hide-sankey-btn" value="Hide Sankey"></input>
+  <input type="submit" id="some-crap" value="Some crap"></input>
 </div>
 
 
