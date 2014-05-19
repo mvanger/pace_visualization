@@ -1,4 +1,4 @@
-var margin = {top: 50, right: 1, bottom: 6, left: 1}
+var margin = {top: 1, right: 1, bottom: 6, left: 1};
     // width = 960 - margin.left - margin.right,
     // height = 500 - margin.top - margin.bottom;
 
@@ -32,7 +32,7 @@ function plotSankey(inputContainer, routeNumber) {
   // d3.json("energy.json", function(energy) {
 
   var input_route = routeNumber;
-  d3.json("new_rosemont.json", function(error, json) {
+  d3.json("newest_sankey.json", function(error, json) {
 
     // Looks for the json nodes and links
     sankey
@@ -62,6 +62,9 @@ function plotSankey(inputContainer, routeNumber) {
       .enter().append("g")
         .attr("class", "node")
         .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+      // .call(d3.behavior.mouseover()
+        // .on("mouseover", function() {link.attr("fill", "black");}))
+        // .on("mouseover", function() {link.attr("fill","black")})
       .call(d3.behavior.drag()
         .origin(function(d) { return d; })
         .on("dragstart", function() { this.parentNode.appendChild(this); })
@@ -97,10 +100,34 @@ function plotSankey(inputContainer, routeNumber) {
   });
 }
 
-plotSankey("#sankey-352", 352);
+plotSankey("#sankey-208", "Pace 208");
+plotSankey("#sankey-215", "Pace 215");
+plotSankey("#sankey-223", "Pace 223");
+plotSankey("#sankey-250", "Pace 250");
+plotSankey("#sankey-270", "Pace 270");
+plotSankey("#sankey-290", "Pace 290");
+plotSankey("#sankey-301", "Pace 301");
+plotSankey("#sankey-307", "Pace 307");
+plotSankey("#sankey-311", "Pace 311");
+plotSankey("#sankey-318", "Pace 318");
+plotSankey("#sankey-322", "Pace 322");
+plotSankey("#sankey-349", "Pace 349");
+plotSankey("#sankey-352", "Pace 352");
+plotSankey("#sankey-353", "Pace 353");
+plotSankey("#sankey-359", "Pace 359");
+plotSankey("#sankey-364", "Pace 364");
+plotSankey("#sankey-379", "Pace 379");
+plotSankey("#sankey-381", "Pace 381");
+plotSankey("#sankey-606", "Pace 606");
+
+// $('.group').click(function(){
+//   alert('test');
+// });
+
+
 
 $('#some-crap').click(function(){
-  plotSankey("#sankey-rosemont", "rosemont");
+  plotSankey("#sankey-rosemont", "Pace 208");
   $('.svg-container').hide();
   $('#sankey-rosemont').show();
   $('#hide-sankey-btn').show();
@@ -123,3 +150,10 @@ $('#hide-sankey-btn').click(function(){
   $('#sankey-btn').show();
   $('#some-crap').show();
 });
+
+$('.group').css("cursor", function(){
+        if (this.id > 7) {
+          return "pointer";
+        }
+      });
+

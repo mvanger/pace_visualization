@@ -42,7 +42,13 @@ function drawChord(inputJSON, chord_number) {
           .data(layout.groups)
         .enter().append("g")
           .attr("class", "group")
-          .attr("id", function(d,i) { return routes[i].name; })
+          .attr("id", function(d,i) {
+            if (routes[i].name == 7) {
+              return "rt7";
+            } else {
+              return routes[i].name.substring(0,3);
+            }
+          })
           .on("mouseover", mouseover);
 
       // Add a mouseover title.
@@ -97,12 +103,17 @@ function drawChord(inputJSON, chord_number) {
       }
 
       $('.group').click(function(){
-        $('.svg-container').hide();
-        // $('.sankey-container').show();
-        $('#sankey-352').show();
-        $('#hide-sankey-btn').show();
-        $('#sankey-btn').hide();
-        $('#some-crap').hide();
+        // alert(this.id);
+        if (this.id > 7) {
+          $('.svg-container').hide();
+          // $('.sankey-container').show();
+          $('#sankey-' + this.id).show();
+          $('#hide-sankey-btn').show();
+          $('#sankey-btn').hide();
+          $('#some-crap').hide();
+        }
+
+
       });
 
     });
@@ -178,4 +189,10 @@ $( "#button" ).click(function() {
 $( "#button2" ).click(function() {
   $('#circle').fadeIn(700);
 });
+
+$('#7').first().css("color", "red");
+
+// #CTA Bus {
+//   cursor: default;
+// }
 
