@@ -5,11 +5,28 @@ var margin = {top: 1, right: 1, bottom: 6, left: 1};
 $('.sankey-container').hide();
 $('#hide-sankey-btn').hide();
 
+var sankey_tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .html(function(d) {
+    return d.value;
+  })
+  .direction('n')
+  .offset([-10, 0]);
+
+var link_tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .html(function(d) {
+    return d.value;
+  })
+  .direction('n')
+  .offset([-10, 0]);
+
 var formatNumber = d3.format(",.0f"),
     format = function(d) { return formatNumber(d) + " Passengers"; },
     color = d3.scale.category20();
 
 function plotSankey(inputContainer, routeNumber) {
+
 
   var svg = d3.select(inputContainer).append("svg")
       .attr("width", width)// + margin.left + margin.right)
@@ -21,6 +38,9 @@ function plotSankey(inputContainer, routeNumber) {
       .nodeWidth(15)
       .nodePadding(10)
       .size([width, height - 100]);
+
+  svg.call(sankey_tip);
+  svg.call(link_tip);
 
   var sankey_path = sankey.link();
 
@@ -50,10 +70,16 @@ function plotSankey(inputContainer, routeNumber) {
         .attr("class", "link")
         .attr("d", sankey_path)
         .style("stroke-width", function(d) { return Math.max(1, d.dy); })
-        .sort(function(a, b) { return b.dy - a.dy; });
+        .sort(function(a, b) { return b.dy - a.dy; })
+        .on("mouseover", link_tip.show)
+        .on("mouseout", link_tip.hide);
 
-    link.append("title")
-        .text(function(d) { return d.source.name + " -> " + d.target.name + "\n" + format(d.value); });
+    link_tip.html(function(d){
+      return d.source.name + " -> " + d.target.name + "</br>" + format(d.value);
+    });
+
+    // link.append("title")
+    //     .text(function(d) { return d.source.name + " -> " + d.target.name + "\n" + format(d.value); });
 
     // And nodes
     var node = svg.append("g").selectAll(".node")
@@ -62,6 +88,8 @@ function plotSankey(inputContainer, routeNumber) {
       .enter().append("g")
         .attr("class", "node")
         .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+        .on("mouseover", sankey_tip.show)
+        .on("mouseout", sankey_tip.hide)
       // .call(d3.behavior.mouseover()
         // .on("mouseover", function() {link.attr("fill", "black");}))
         // .on("mouseover", function() {link.attr("fill","black")})
@@ -70,14 +98,18 @@ function plotSankey(inputContainer, routeNumber) {
         .on("dragstart", function() { this.parentNode.appendChild(this); })
         .on("drag", dragmove));
 
+    sankey_tip.html(function(d){
+      return d.name + "</br>" + format(d.value);
+    });
+
     // Appends the nodes as rectangles
     node.append("rect")
         .attr("height", function(d) { return d.dy; })
         .attr("width", sankey.nodeWidth())
         .style("fill", function(d) { return d.color = color(d.name.replace(/ .*/, "")); })
-        .style("stroke", function(d) { return d3.rgb(d.color).darker(2); })
-      .append("title")
-        .text(function(d) { return d.name + "\n" + format(d.value); });
+        .style("stroke", function(d) { return d3.rgb(d.color).darker(2); });
+      // .append("title")
+        // .text(function(d) { return d.name + "\n" + format(d.value); });
 
     // Appends the nodes' text
     node.append("text")
@@ -149,11 +181,14 @@ $('#hide-sankey-btn').click(function(){
   $('#hide-sankey-btn').hide();
   $('#sankey-btn').show();
   $('#some-crap').show();
+  $('.cta-buttons').show();
+  $('.chord-description').show();
+  $('.route-description').hide();
 });
 
-$('.group').css("cursor", function(){
-        if (this.id > 7) {
-          return "pointer";
-        }
-      });
+// $('.group').css("cursor", function(){
+//         if (this.id > 7) {
+//           return "pointer";
+//         }
+//       });
 

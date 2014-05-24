@@ -28,11 +28,54 @@ var svg_one = d3.select(".svg-container").append("svg")
 svg_one.append("circle")
     .attr("r", outerRadius);
 
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .html(function(d) {
+    return d.value;
+  })
+  .direction('n')
+  .offset([-10, 0]);
 
+// var mouseCoords = d3.mouse(
+//         SVGtooltip[0][0].parentElement);
+
+// var chord_tip = d3.tip()
+//   .attr('class', 'd3-tip')
+//   .html(function(d) {
+//     return d.value;
+//   })
+//   .direction('n')
+  // .offset(function(d) {
+  //   return [0,0];
+  // });
+
+// $('.d3-chord-tip').style("top", d3.event.pageY + "px");
 
 function drawChord(inputJSON, chord_number) {
   d3.csv("routes.csv", function(routes) {
     d3.json(inputJSON, function(matrix) {
+
+      chord_number.call(tip);
+      // chord_number.call(chord_tip);
+
+      var thousands = d3.format(',');
+
+      tip.html(function(d, i) {
+        return routes[i].name + ": " + thousands(Math.round(d.value)) + " passengers";
+      });
+
+      // chord_tip.html(function(d, i) {
+      //   return routes[d.source.index].name
+      //       + " → " + routes[d.target.index].name
+      //       + ": " + thousands(d.source.value)
+      //       + "</br>" + routes[d.target.index].name
+      //       + " → " + routes[d.source.index].name
+      //       + ": " + thousands(d.target.value);
+      // })
+      // .style('top', '1000px')
+      // .offset(function(d) {
+      //   return [0, 0];
+      // });
 
       // Compute the chord layout.
       layout.matrix(matrix);
@@ -49,12 +92,14 @@ function drawChord(inputJSON, chord_number) {
               return routes[i].name.substring(0,3);
             }
           })
-          .on("mouseover", mouseover);
+          .on("mouseover", mouseover)
+          .on("mouseenter", tip.show)
+          .on("mouseout", tip.hide);
 
       // Add a mouseover title.
-      group.append("title").text(function(d, i) {
-        return routes[i].name + ": " + Math.round(d.value) + " passengers";
-      });
+      // group.append("title").text(function(d, i) {
+      //   return routes[i].name + ": " + Math.round(d.value) + " passengers";
+      // });
 
       // Add the group arc.
       var groupPath = group.append("path")
@@ -83,16 +128,17 @@ function drawChord(inputJSON, chord_number) {
           .style("fill", function(d) { return routes[d.source.index].color; })
           // .style("stroke", "#D8D8D8")
           // .style("stroke-width", "1px")
-          .attr("d", path);
+          .attr("d", path)
+          // .on("mouseover", chord_tip.show)
 
       // Add an elaborate mouseover title for each chord.
       chord.append("title").text(function(d) {
         return routes[d.source.index].name
             + " → " + routes[d.target.index].name
-            + ": " + d.source.value
+            + ": " + thousands(d.source.value)
             + "\n" + routes[d.target.index].name
             + " → " + routes[d.source.index].name
-            + ": " + d.target.value;
+            + ": " + thousands(d.target.value);
       });
 
       function mouseover(d, i) {
@@ -108,9 +154,12 @@ function drawChord(inputJSON, chord_number) {
           $('.svg-container').hide();
           // $('.sankey-container').show();
           $('#sankey-' + this.id).show();
+          $('.cta-buttons').hide();
           $('#hide-sankey-btn').show();
           $('#sankey-btn').hide();
           $('#some-crap').hide();
+          $('.chord-description').hide();
+          $('#route-' + this.id).show();
         }
 
 
