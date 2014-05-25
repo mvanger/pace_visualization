@@ -5,8 +5,6 @@ gem 'rails', '4.0.1'
 
 gem 'pry'
 
-gem 'pg'
-
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', group: :development
 gem 'pg', group: :production

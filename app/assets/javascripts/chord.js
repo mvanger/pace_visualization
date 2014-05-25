@@ -52,8 +52,8 @@ var tip = d3.tip()
 // $('.d3-chord-tip').style("top", d3.event.pageY + "px");
 
 function drawChord(inputJSON, chord_number) {
-  d3.csv("routes.csv", function(routes) {
-    d3.json(inputJSON, function(matrix) {
+  // d3.csv("routes.csv", function(routes) {
+    // d3.json(inputJSON, function(matrix) {
 
       chord_number.call(tip);
       // chord_number.call(chord_tip);
@@ -78,7 +78,7 @@ function drawChord(inputJSON, chord_number) {
       // });
 
       // Compute the chord layout.
-      layout.matrix(matrix);
+      layout.matrix(inputJSON);
 
       // Add a group per neighborhood.
       var group = chord_number.selectAll(".group")
@@ -165,13 +165,13 @@ function drawChord(inputJSON, chord_number) {
 
       });
 
-    });
-  });
+    // });
+  // });
 }
 
 $( '#button3' ).css('display', 'none');
 $( '.chord-two-container').css('display', 'none');
-drawChord("chord3.json", svg_one);
+drawChord(chord_three, svg_one);
 
 $( '#button4' ).click(function(){
   var svg_two = d3.select(".svg-container").append("svg")
@@ -195,7 +195,7 @@ $( '#button4' ).click(function(){
   );
 
   setTimeout(function(){
-    drawChord("chord4.json", svg_two);
+    drawChord(chord_four, svg_two);
     $('.chord-two-container').css('display', 'none');
     $('.chord-two-container').fadeIn(200);
   },
@@ -224,7 +224,7 @@ $('#button3').click(function(){
   );
 
   setTimeout(function(){
-    drawChord("chord3.json", svg_one);
+    drawChord(chord_three, svg_one);
     $('.chord-one-container').css('display', 'none');
     $('.chord-one-container').fadeIn(200);
   },

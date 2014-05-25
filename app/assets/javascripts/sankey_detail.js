@@ -27,7 +27,6 @@ var formatNumber = d3.format(",.0f"),
 
 function plotSankey(inputContainer, routeNumber) {
 
-
   var svg = d3.select(inputContainer).append("svg")
       .attr("width", width)// + margin.left + margin.right)
       .attr("height", height - 50)// + margin.top + margin.bottom)
@@ -52,20 +51,20 @@ function plotSankey(inputContainer, routeNumber) {
   // d3.json("energy.json", function(energy) {
 
   var input_route = routeNumber;
-  d3.json("newest_sankey.json", function(error, json) {
+  // d3.json("newest_sankey.json", function(error, json) {
 
     // Looks for the json nodes and links
     sankey
         // .nodes(energy.nodes)
         // .links(energy.links)
-        .nodes(json[input_route].nodes)
-        .links(json[input_route].links)
+        .nodes(sankey_ridership[input_route].nodes)
+        .links(sankey_ridership[input_route].links)
         .layout(32);
 
     // Adds links
     var link = svg.append("g").selectAll(".link")
         // .data(energy.links)
-        .data(json[input_route].links)
+        .data(sankey_ridership[input_route].links)
       .enter().append("path")
         .attr("class", "link")
         .attr("d", sankey_path)
@@ -84,7 +83,7 @@ function plotSankey(inputContainer, routeNumber) {
     // And nodes
     var node = svg.append("g").selectAll(".node")
         // .data(energy.nodes)
-        .data(json[input_route].nodes)
+        .data(sankey_ridership[input_route].nodes)
       .enter().append("g")
         .attr("class", "node")
         .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
@@ -129,7 +128,7 @@ function plotSankey(inputContainer, routeNumber) {
       sankey.relayout();
       link.attr("d", sankey_path);
     }
-  });
+  // });
 }
 
 plotSankey("#sankey-208", "Pace 208");
