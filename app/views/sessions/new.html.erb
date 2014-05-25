@@ -1,0 +1,15 @@
+<div class="text-center">
+  <h1 style="color: #bc131a">Log in</h1>
+
+  <%= form_tag sessions_path do %>
+    <p>
+      <%= label_tag :screenname %><br/>
+      <%= text_field_tag :screenname, params[:screenname], placeholder: "Screenname", autofocus: true %>
+    </p>
+    <p>
+      <%= label_tag :password %><br/>
+      <%= password_field_tag :password %>
+    </p>
+    <p><%= submit_tag value = "Log in", :class => "btn" %></p>
+  <% end %>
+</div>
