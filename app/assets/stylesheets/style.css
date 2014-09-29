@@ -117,7 +117,7 @@ a {
 }
 
 a:not(:hover) {
-  text-decoration: none;
+  /*text-decoration: none;*/
 }
 
 pre, code, textarea {
